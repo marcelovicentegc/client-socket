@@ -6,6 +6,9 @@
 #include <netdb.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
+
+#define CLOCKS_PER_MS (CLOCKS_PER_SEC / 1000)
 
 void error(char *msg) {
     perror(msg);
@@ -13,6 +16,8 @@ void error(char *msg) {
 }
 
 int main(int cli_args_length, char *cli_args[]) {
+    double execution_time = 0.0;
+    clock_t start = clock();
     int client_socket, port, response;
 
     struct sockaddr_in serv_addr;
@@ -60,5 +65,9 @@ int main(int cli_args_length, char *cli_args[]) {
     response = read(client_socket, buffer, 1023);
 
     printf("%s\n", buffer);
+    
+    clock_t end = clock();
+    execution_time += (double)(end - start) / CLOCKS_PER_MS;
+    printf("\n\n\n\nexecution time: %fms\n", execution_time);
     return 0;
 }
