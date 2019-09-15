@@ -1,9 +1,8 @@
 import socket
 import sys
 import time
-start = time.time()
 
-# AF_INET stands to Address Family Internet (IPv4), and SOCK_STREAM corresponds to TCP
+start = time.time()
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 if (len(sys.argv) != 3):

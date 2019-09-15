@@ -46,7 +46,7 @@ func send(hostname, port string) {
 		fmt.Println(error)
 	}
 
-	fmt.Fprintf(connection, "GET / HTTP/1.0\r\n\r\n")
+	fmt.Fprintf(connection, "GET / HTTP/1.1\r\n\r\n")
 	client := &Client{socket: connection}
 
 	go client.receive()
