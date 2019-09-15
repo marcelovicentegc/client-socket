@@ -53,8 +53,8 @@ func send(hostname, port string) {
 
 	for {
 		reader := bufio.NewReader(os.Stdin)
-		message, _ := reader.ReadString('\n')
-		connection.Write([]byte(strings.TrimRight(message, "\n")))
+		response, _ := reader.ReadString('\n')
+		connection.Write([]byte(strings.TrimRight(response, "\n")))
 	}
 }
 

@@ -9,7 +9,10 @@
 
 ### C
 
-### Go
+1. Compile it: `gcc src/client_socket.c -o <file_name>` (i.g. `gcc src/client_socket.c -o client_socket`)
+2. Run it: `./<file_name> <hostname> <port>` (i.g. `./client_socket www.google.com 80`)
+
+### Go️
 
 1. Make sure you have `go 1.12.5` onwards installed
 1. Run `go run src/goClientSocket/clientSocket.go --hostname <hostname> --port <port>` (i.g. `go run src/goClientSocket/clientSocket.go --hostname www.google.com --port 80`)

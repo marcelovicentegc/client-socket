@@ -1,39 +1,39 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
+#include <string.h>
+#include <unistd.h>
 
-void error(char *msg)
-{
+void error(char *msg) {
     perror(msg);
     exit(0);
 }
 
-int main(int argc, char *argv[])
-{
-    int sockfd, portno, n;
+int main(int cli_args, char *argv[]) {
+    int client_socket, port, response;
 
     struct sockaddr_in serv_addr;
-    struct hostent *server;
+    struct hostent *host;
+    char buffer[1024];
 
-    char buffer[256];
-    if (argc < 3)
-    {
-        fprintf(stderr, "usage %s hostname port\n", argv[0]);
+    if (cli_args < 3) {
+        fprintf(stderr, "provide a hostname and a port\n");
         exit(0);
     }
-    portno = atoi(argv[2]);
-    sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
-    if (sockfd < 0)
-        error("ERROR opening socket");
+    port = atoi(argv[2]);
+    client_socket = socket(AF_INET, SOCK_STREAM, 0);
 
-    server = gethostbyname(argv[1]);
+    if (client_socket < 0)
+        error("ERROR: couldn't open the socket\n");
 
-    if (server == NULL)
-    {
-        fprintf(stderr, "ERROR, no such host\n");
+    host = gethostbyname(argv[1]);
+
+    if (host == NULL) {
+        fprintf(stderr, "ERROR: no such host\n");
         exit(0);
     }
 
@@ -41,31 +41,24 @@ int main(int argc, char *argv[])
 
     serv_addr.sin_family = AF_INET;
 
-    bcopy((char *)server->h_addr,
+    bcopy((char *)host->h_addr,
           (char *)&serv_addr.sin_addr.s_addr,
-          server->h_length);
+          host->h_length);
 
-    serv_addr.sin_port = htons(portno);
+    serv_addr.sin_port = htons(port);
 
-    if (connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
-        error("ERROR connecting");
+    if (connect(client_socket, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
+        error("ERROR: couldn't establish a connection with the provided address\n");
 
-    printf("Please enter the message: ");
+    bzero(buffer, 1024);
 
-    bzero(buffer, 256);
-    fgets(buffer, 255, stdin);
+    response = write(client_socket, "GET / HTTP/1.1\r\n\r\n", strlen("GET / HTTP/1.1\r\n\r\n"));
 
-    n = write(sockfd, buffer, strlen(buffer));
-
-    if (n < 0)
+    if (response < 0)
         error("ERROR writing to socket");
 
-    bzero(buffer, 256);
-    n = read(sockfd, buffer, 255);
+    response = read(client_socket, buffer, 1023);
 
-    if (n < 0)
-        error("ERROR reading from socket");
     printf("%s\n", buffer);
-
     return 0;
 }
