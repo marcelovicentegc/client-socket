@@ -12,25 +12,25 @@ void error(char *msg) {
     exit(0);
 }
 
-int main(int cli_args, char *argv[]) {
+int main(int cli_args_length, char *cli_args[]) {
     int client_socket, port, response;
 
     struct sockaddr_in serv_addr;
     struct hostent *host;
     char buffer[1024];
 
-    if (cli_args < 3) {
+    if (cli_args_length < 3) {
         fprintf(stderr, "provide a hostname and a port\n");
         exit(0);
     }
 
-    port = atoi(argv[2]);
+    port = atoi(cli_args[2]);
     client_socket = socket(AF_INET, SOCK_STREAM, 0);
 
     if (client_socket < 0)
         error("ERROR: couldn't open the socket\n");
 
-    host = gethostbyname(argv[1]);
+    host = gethostbyname(cli_args[1]);
 
     if (host == NULL) {
         fprintf(stderr, "ERROR: no such host\n");
