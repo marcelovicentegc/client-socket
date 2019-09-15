@@ -7,11 +7,18 @@ import (
 	"net"
 	"os"
 	"strings"
+	"time"
 )
 
 type Client struct {
 	socket net.Conn
 	data   chan []byte
+}
+
+var start time.Time
+
+func init() {
+	start = time.Now()
 }
 
 func (client *Client) receive() {
@@ -26,6 +33,7 @@ func (client *Client) receive() {
 
 		if length > 0 {
 			fmt.Println(string(response))
+			fmt.Printf("\n\n\n\n execution time: %v\n", time.Since(start))
 			os.Exit(0)
 		}
 	}

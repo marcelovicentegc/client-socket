@@ -1,5 +1,7 @@
 import socket
 import sys
+import time
+start = time.time()
 
 # AF_INET stands to Address Family Internet (IPv4), and SOCK_STREAM corresponds to TCP
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -17,3 +19,7 @@ client_socket.send(request.encode())
 
 response = client_socket.recv(1024)
 print(response.decode("utf-8"))
+
+end = time.time()
+execution_time = end - start
+print("\n\n\n\nexecution time: ", execution_time)
