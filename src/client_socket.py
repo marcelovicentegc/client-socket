@@ -1,7 +1,7 @@
 import socket
 import sys
 
-# AF_INET corresponds to IPv4, and SOCK_STREAM corresponds to TCP
+# AF_INET stands to Address Family Internet (IPv4), and SOCK_STREAM corresponds to TCP
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 if (len(sys.argv) != 3):
