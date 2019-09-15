@@ -5,10 +5,10 @@ import sys
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 if (len(sys.argv) != 3):
-    print("Please provide a hostname and a port")
+    print("provide a hostname and a port")
     quit()
 
-hostname = sys.argv[1]
+hostname = sys.argv[1].lower()
 port = int(sys.argv[2])
 request = "GET / HTTP/1.1\r\nHost:%s\r\n\r\n" % hostname
 
