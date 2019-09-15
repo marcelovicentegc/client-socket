@@ -21,5 +21,5 @@ response = client_socket.recv(1024)
 print(response.decode("utf-8"))
 
 end = time.time()
-execution_time = end - start
-print("\n\n\n\nexecution time: ", execution_time)
+execution_time = (end - start) * 1000
+print("\n\n\n\nexecution time: %sms" % execution_time)
