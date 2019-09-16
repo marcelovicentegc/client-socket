@@ -56,8 +56,10 @@ int main(int cli_args_length, char *cli_args[]) {
         error("ERROR: couldn't establish a connection with the provided address\n");
 
     bzero(buffer, 1024);
-
-    response = write(client_socket, "GET / HTTP/1.1\r\n\r\n", strlen("GET / HTTP/1.1\r\n\r\n"));
+    char *hostname = cli_args[1];
+    char *header = "GET / HTTP/1.1\r\nHost:%s\r\n\r\n";
+    sprintf(buffer, header, hostname);
+    response = write(client_socket, buffer, sizeof(buffer));
 
     if (response < 0)
         error("ERROR writing to socket");
