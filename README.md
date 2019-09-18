@@ -1,5 +1,7 @@
 # ⚽️ client-socket
 
+Client sockets that executes a GET request to any website on each run.
+
 ## Directions
 
 ### Python
@@ -15,4 +17,8 @@
 ### Go️
 
 1. Make sure you have `go 1.12.5` onwards installed
-1. Run `go run src/goClientSocket/clientSocket.go --hostname <hostname> --port <port>` (i.g. `go run src/goClientSocket/clientSocket.go --hostname www.google.com --port 80`)
+2. Run `go run src/goClientSocket/clientSocket.go --hostname <hostname> --port <port>` (i.g. `go run src/goClientSocket/clientSocket.go --hostname www.google.com --port 80`)
+
+### Lua
+1. Make sure you have `lua 5.2` onwards installed and [Lua's socket helper](https://github.com/diegonehab/luasocket) 
+2. Run `lua src/client_socket.lua <hostname> <port>` (i.g. `lua src/client_socket.lua www.google.com 80`) 
