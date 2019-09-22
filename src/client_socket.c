@@ -68,6 +68,8 @@ int main(int cli_args_length, char *cli_args[]) {
 
     printf("%s\n", buffer);
     
+    close(client_socket);
+    
     clock_t end = clock();
     execution_time += (double)(end - start) / CLOCKS_PER_MS;
     printf("\n\n\n\nexecution time: %fms\n", execution_time);

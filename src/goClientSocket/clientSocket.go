@@ -60,8 +60,8 @@ func send(hostname, port string) {
 }
 
 func main() {
-	hostname := flag.String("hostname", "", "address which the socket will send a request")
-	port := flag.String("port", "", "port which the socket should send a request (usually 80 or 443)")
+	hostname := flag.String("hostname", "", "address which the socket will send a request to")
+	port := flag.String("port", "", "port which the socket should send a request (80 or 443)")
 	flag.Parse()
 
 	if len(*hostname) == 0 {
