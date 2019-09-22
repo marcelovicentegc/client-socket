@@ -1,5 +1,4 @@
 # SYN
-
 ## MSN 
 ![www.msn.com SYN](./screenshots/SYN/msn.png)
 
